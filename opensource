@@ -1,0 +1,65 @@
+pip install requests
+
+import requests
+pip install keyboard requests
+
+
+def send_file_via_webhook(webhook_url, file_path, message="Here's your file"):
+    # Open the file in binary mode
+    with open(file_path, 'rb') as file:
+        # Prepare the payload for the webhook
+        payload = {
+            'content': message
+        }
+        # Prepare the file to be sent
+        file_data = {
+            'file': (file_path, file)
+        }
+        
+        # Send the POST request with the file
+        response = requests.post(webhook_url, data=payload, files=file_data)
+        
+        # Check if the request was successful
+        if response.status_code == 204:
+            print("File sent successfully!")
+        else:
+            print(f"Failed to send file. Status code: {response.status_code}")
+
+# Example usage:
+webhook_url = "YOUR_DISCORD_WEBHOOK_URL"
+file_path = "path_to_your_file.txt"  # Change to your file path
+send_file_via_webhook(webhook_url, file_path)
+
+
+import keyboard
+import requests
+
+def send_message_via_webhook(webhook_url, message):
+    # Payload to send via the webhook
+    payload = {
+        'content': message
+    }
+    # Send the POST request to the Discord webhook
+    response = requests.post(webhook_url, json=payload)
+
+    # Check if the request was successful
+    if response.status_code == 204:
+        print("Message sent successfully!")
+    else:
+        print(f"Failed to send message. Status code: {response.status_code}")
+
+def on_enter_press(webhook_url):
+    # This function will run when the "Enter" key is pressed
+    print("Enter key pressed, sending message...")
+    send_message_via_webhook(webhook_url, "Info :!:")
+
+# Replace with your Discord webhook URL
+webhook_url = "YOUR_DISCORD_WEBHOOK_URL"
+
+# Setup a keyboard listener for the "Enter" key
+keyboard.add_hotkey('enter', lambda: on_enter_press(webhook_url))
+
+print("Listening for 'Enter' key press...")
+
+# Keep the program running
+keyboard.wait('esc')  # Use 'esc' to stop the script
